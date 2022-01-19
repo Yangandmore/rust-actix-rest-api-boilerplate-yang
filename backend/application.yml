@@ -1,0 +1,14 @@
+# sql配置
+db_url: "mysql://root:Ysq13870271456!@localhost:3306/test"
+
+# 日志配置
+# 文件夹地址
+log_dir: "logs/"
+# 日志分割
+log_temp_size: "100MB"
+#日志打包格式可选“”（空-不压缩）“gzip”（gz压缩包）“zip”（zip压缩包）“lz4”（lz4压缩包（非常快））
+log_pack_compress: "zip"
+#日志滚动保留-保留全部: All,按时间保留(秒): KeepTime(i64),按版本保留: KeepNum(i64)
+log_rolling_type: "KeepNum(20)"
+#日志等级-info,error,warn,debug,trace
+log_level: "info"

@@ -1,0 +1,27 @@
+[package]
+name = "backend"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+#异步处理
+futures = "0.3"
+async-std = "1.10"
+##数据库
+rbson = "2.0"
+rbatis = { version = "3.0", default-features = false, features = ["mysql","runtime-async-std-rustls"] }
+#日志
+log = "0.4"
+fast_log = { version="1.4", features = ["lz4","zip", "gzip"]}
+#serde，chrono
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_yaml = "0.8"
+chrono = { version = "0.4", features = ["serde"] }
+#actix 服务
+actix-web = "3.3"
+actix-http = "2.2"
+#static
+lazy_static = "1.4.0"

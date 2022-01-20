@@ -1,7 +1,7 @@
 use crate::config::config::AppConfig;
 use rbatis::rbatis::Rbatis;
-use rbatis::logic_delete::RbatisLogicDeletePlugin;
 
+/// rbatis orm 连接池初始化
 pub async fn init_rbatis(config: &AppConfig) -> Rbatis {
     let rbatis = Rbatis::new();
 

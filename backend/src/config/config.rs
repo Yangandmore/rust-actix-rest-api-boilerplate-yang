@@ -3,6 +3,11 @@ use serde::{Deserialize, Serialize};
 ///服务启动配置
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct AppConfig {
+    /// 服务名称
+    pub server_name: String,
+    /// 服务地址
+    pub server_url: String,
+
     /// 数据库连接地址
     pub db_url: String,
 

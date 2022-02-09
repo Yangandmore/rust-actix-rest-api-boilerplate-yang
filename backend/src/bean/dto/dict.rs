@@ -16,3 +16,12 @@ pub struct DictAddDTO {
     pub code: Option<String>,
     pub state: Option<i32>,
 }
+
+/// 字典修改参数
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct DictUpdateDTO {
+    pub id: Option<String>,
+    pub name: Option<String>,
+    pub code: Option<String>,
+    pub state: Option<i32>,
+}

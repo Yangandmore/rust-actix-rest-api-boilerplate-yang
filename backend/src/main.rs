@@ -11,6 +11,8 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
             .route("/dict/add", web::get().to(sys_dict_controller::add))
+            .route("/dict/update", web::get().to(sys_dict_controller::update))
+            .route("/dict/delete", web::get().to(sys_dict_controller::delete))
             .route("/dict/list", web::get().to(sys_dict_controller::list))
     })
         .bind(&CONTEXT.config.server_url)?

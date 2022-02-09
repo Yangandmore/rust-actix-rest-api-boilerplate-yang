@@ -3,6 +3,8 @@ use actix_web::{HttpResponse};
 use actix_http::Response;
 use serde::de::DeserializeOwned;
 use crate::config::error::{Error};
+use std::fmt::{Formatter, Display};
+use std::str::FromStr;
 
 pub mod dict;
 
@@ -75,11 +77,11 @@ where
     }
 }
 
-impl <T> ToString for ResVO<T>
-where
-    T: Serialize + DeserializeOwned + Clone,
+impl <T>Display for ResVO<T>
+    where
+        T: Serialize + DeserializeOwned + Clone,
 {
-    fn to_string(&self) -> String {
-        serde_json::to_string(self).unwrap()
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", serde_json::to_string(self).unwrap())
     }
 }

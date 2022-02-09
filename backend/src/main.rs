@@ -1,8 +1,6 @@
 use actix_web::{HttpServer, App, web};
 use backend::service::CONTEXT;
 use backend::controller::*;
-use actix_web::dev::Service;
-use futures::FutureExt;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -12,7 +10,7 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(|| {
         App::new()
-            .route("/dict/add", web::get().to())
+            .route("/dict/add", web::get().to(sys_dict_controller::add))
             .route("/dict/list", web::get().to(sys_dict_controller::list))
     })
         .bind(&CONTEXT.config.server_url)?

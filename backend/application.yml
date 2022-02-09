@@ -3,7 +3,7 @@ server_name: "DEMO"
 # 地址，端口
 server_url: "0.0.0.0:8080"
 # sql配置
-db_url: "mysql://root:Ysq13870271456!@localhost:3306/test"
+db_url: "mysql://root:Ysq13870271456!@localhost:3306/boilerplate_yang"
 
 # 日志配置
 # 文件夹地址

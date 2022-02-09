@@ -38,6 +38,33 @@ where
         }
     }
 
+    /// 成功字符串包装
+    pub fn unwrap_success_string(code: &str, msg: &str) -> Self {
+        let mut code_str = code.to_string();
+        if code_str.is_empty() {
+            code_str = SUCCESS.to_string();
+        }
+        Self {
+            code: Some(code_str),
+            msg: Some(msg.to_string()),
+            data: None,
+        }
+
+    }
+
+    /// 异常字符串包装
+    pub fn unwrap_error_string(code: &str, msg: &str) -> Self {
+        let mut code_str = code.to_string();
+        if code_str.is_empty() {
+            code_str = FAIL.to_string();
+        }
+        Self {
+            code: Some(code_str),
+            msg: Some(msg.to_string()),
+            data: None,
+        }
+    }
+
     /// 处理对象为json responder
     pub fn to_json(&self) -> Response {
         HttpResponse::Ok()

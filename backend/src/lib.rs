@@ -4,8 +4,6 @@
 pub mod config;
 ///字典模块
 pub mod controller;
-///数据库模块
-pub mod dao;
 pub mod middleware;
 pub mod service;
 pub mod util;

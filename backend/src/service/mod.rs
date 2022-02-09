@@ -3,7 +3,7 @@
 /// 系统字典服务
 mod sys_dict_service;
 
-use crate::config::config::AppConfig;
+use crate::config::{config::AppConfig, mysql};
 use lazy_static::lazy_static;
 use rbatis::rbatis::Rbatis;
 use crate::service::sys_dict_service::SysDictService;
@@ -21,7 +21,7 @@ impl Default for ServiceContext {
         let config = AppConfig::default();
         ServiceContext {
             rbatis: async_std::task::block_on(async {
-                crate::dao::init_rbatis(&config).await
+                mysql::init_rbatis(&config).await
             }),
             config,
 

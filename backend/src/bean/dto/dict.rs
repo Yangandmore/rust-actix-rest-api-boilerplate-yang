@@ -7,6 +7,14 @@ pub struct DictListDTO {
     pub page_index: Option<u64>,
     /// 页量
     pub page_count: Option<u64>,
+    /// 名称
+    pub name: Option<String>,
+    /// 代码
+    pub code: Option<String>,
+    /// 启用状态
+    pub state: Option<u64>,
+    /// 创建时间
+    pub create_date: Option<rbatis::DateTimeNative>,
 }
 
 /// 字典新增参数

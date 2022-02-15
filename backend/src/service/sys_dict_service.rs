@@ -90,12 +90,20 @@ impl SysDictService {
     /// 字典分页
     pub async fn list(&self, list: &DictListDTO) -> RestResult<Page<SysDictVO>> {
         let request = PageRequest::new(list.page_index.unwrap_or(1), list.page_count.unwrap_or(10));
+        let mut wrapper = CONTEXT.rbatis.new_wrapper();
+        if list.name.is_some() {
+            wrapper = wrapper.eq(SysDict::name(), &list.name).and();
+        }
+        if list.code.is_some() {
+            wrapper = wrapper.eq(SysDict::code(), &list.code).and();
+        }
+        if list.state.is_some() {
+            wrapper = wrapper.eq(SysDict::state(), &list.state).and();
+        }
         let data = CONTEXT
             .rbatis
             .fetch_page_by_wrapper::<SysDict>(
-                CONTEXT
-                    .rbatis
-                    .new_wrapper()
+                wrapper
                     .order_by(false, &[SysDict::create_date()]),
                 &request,
             ).await?;
@@ -107,6 +115,7 @@ impl SysDictService {
             records.push(vo);
         }
 
+        page.pages = data.pages;
         page.set_records(records);
         page.set_total(data.total);
         Ok(page)

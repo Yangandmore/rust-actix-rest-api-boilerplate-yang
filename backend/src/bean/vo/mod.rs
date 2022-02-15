@@ -4,7 +4,6 @@ use actix_http::Response;
 use serde::de::DeserializeOwned;
 use crate::config::error::{Error};
 use std::fmt::{Formatter, Display};
-use std::str::FromStr;
 
 pub mod dict;
 

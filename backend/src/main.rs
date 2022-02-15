@@ -12,11 +12,14 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(|| {
         App::new()
+            // 日志处理
             .wrap(Logger::default())
+            // 跨域处理
             .wrap(Cors::permissive())
-            .route("/dict/add", web::get().to(sys_dict_controller::add))
-            .route("/dict/update", web::get().to(sys_dict_controller::update))
-            .route("/dict/delete", web::get().to(sys_dict_controller::delete))
+            // 接口
+            .route("/dict/add", web::post().to(sys_dict_controller::add))
+            .route("/dict/update", web::post().to(sys_dict_controller::update))
+            .route("/dict/delete", web::post().to(sys_dict_controller::delete))
             .route("/dict/list", web::post().to(sys_dict_controller::list))
     })
         .bind(&CONTEXT.config.server_url)?

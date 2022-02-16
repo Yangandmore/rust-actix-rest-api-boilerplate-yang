@@ -11,6 +11,7 @@ pub struct SysDictService {}
 
 impl SysDictService {
 
+    /// 判断 DictUpdateDTO 中 id、name、code 数据不为空
     pub fn is_not_empty_add_id(&self, dict: &DictUpdateDTO) -> RestResult<()> {
         if dict.id.is_none() {
             return Err(Error::from("字典id为空"));
@@ -24,6 +25,7 @@ impl SysDictService {
         Ok(())
     }
 
+    /// 判断 DictAddDTO 中 name、code 数据不为空
     pub fn is_not_empty(&self, dict: &DictAddDTO) -> RestResult<()> {
         if dict.name.is_none() {
             return Err(Error::from("字典名称为空"));
@@ -34,6 +36,7 @@ impl SysDictService {
         Ok(())
     }
 
+    /// 根据 DictUpdateDTO 中id查找是否存在该字典
     pub async fn has_dict_id(&self, dict: &DictUpdateDTO) -> RestResult<()> {
         let vec = CONTEXT
             .rbatis
@@ -51,6 +54,7 @@ impl SysDictService {
         }
     }
 
+    /// 根据 IdDTO 中id查找字典
     pub async fn has_id(&self, dict: &IdDTO) -> RestResult<()> {
         let vec = CONTEXT
             .rbatis
@@ -68,6 +72,7 @@ impl SysDictService {
         }
     }
 
+    /// 判断是否存在重名和代码号
     pub async fn has_name_and_code(&self, dict: &DictAddDTO) -> RestResult<()> {
         let vec = CONTEXT
             .rbatis
@@ -123,7 +128,7 @@ impl SysDictService {
 
     /// 字典新增
     pub async fn add(&self, dict: SysDict) -> RestResult<()> {
-        if 1 == CONTEXT.rbatis.save(&dict, &[]).await?.rows_affected {
+        if 1 == CONTEXT.rbatis.save::<SysDict>(&dict, &[]).await?.rows_affected {
             Ok(())
         } else {
             Err(Error::from("添加失败"))

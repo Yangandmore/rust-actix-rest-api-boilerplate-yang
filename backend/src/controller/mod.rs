@@ -1,2 +1,8 @@
-///系统字典接口
+/// 接口层
+///
+/// 系统字典接口
 pub mod sys_dict_controller;
+/// 用户接口
+pub mod sys_user_controller;
+/// 角色接口
+pub mod sys_role_controller;

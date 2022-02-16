@@ -21,6 +21,11 @@ async fn main() -> std::io::Result<()> {
             .route("/dict/update", web::post().to(sys_dict_controller::update))
             .route("/dict/delete", web::post().to(sys_dict_controller::delete))
             .route("/dict/list", web::post().to(sys_dict_controller::list))
+
+            .route("/role/add", web::post().to(sys_role_controller::add))
+            .route("/role/update", web::post().to(sys_role_controller::update))
+            .route("/role/delete", web::post().to(sys_role_controller::delete))
+            .route("/role/list", web::post().to(sys_role_controller::list))
     })
         .bind(&CONTEXT.config.server_url)?
         .run()

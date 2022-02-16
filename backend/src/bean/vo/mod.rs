@@ -5,7 +5,14 @@ use serde::de::DeserializeOwned;
 use crate::config::error::{Error};
 use std::fmt::{Formatter, Display};
 
+/// 出口bean
+///
+/// 字典
 pub mod dict;
+/// 用户
+pub mod user;
+/// 角色
+pub mod role;
 
 const SUCCESS: &str = "success";
 const FAIL: &str = "fail";

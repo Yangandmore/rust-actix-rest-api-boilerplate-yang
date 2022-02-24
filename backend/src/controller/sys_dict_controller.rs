@@ -2,9 +2,6 @@ use actix_web::{Responder, web};
 use crate::bean::dto::{dict::*, IdDTO};
 use crate::bean::vo::ResVO;
 use crate::service::CONTEXT;
-use crate::bean::tables::SysDict;
-use rbatis::DateTimeNative;
-use rbatis::plugin::object_id::ObjectId;
 
 /// 字典分页
 pub async fn list(list: web::Json<DictListDTO>) -> impl Responder {
@@ -26,14 +23,7 @@ pub async fn add(mut dict: web::Json<DictAddDTO>) -> impl Responder {
        return  ResVO::<String>::unwrap_error_string("", err.description()).to_json();
     }
 
-    let res = SysDict {
-        id: Some(ObjectId::new().to_string()),
-        name: dict.name.clone(),
-        code: dict.code.clone(),
-        state: dict.state.clone(),
-        create_date: DateTimeNative::now().into()
-    };
-    if let Err(err) = CONTEXT.sys_dict_service.add(res).await {
+    if let Err(err) = CONTEXT.sys_dict_service.add(dict.0).await {
         return  ResVO::<String>::unwrap_error_string("", err.description()).to_json();
     }
 

@@ -2,9 +2,6 @@ use actix_web::{Responder, web};
 use crate::bean::dto::role::{RoleListDTO, RoleAddDTO, RoleUpdateDTO};
 use crate::service::CONTEXT;
 use crate::bean::vo::ResVO;
-use crate::bean::tables::SysRole;
-use rbatis::plugin::object_id::ObjectId;
-use rbatis::DateTimeNative;
 use crate::bean::dto::IdDTO;
 
 /// 角色分页
@@ -21,12 +18,8 @@ pub async fn add(role: web::Json<RoleAddDTO>) -> impl Responder {
     if let Err(err) = CONTEXT.sys_role_service.has_name(&role.0).await {
         return ResVO::<String>::unwrap_error_string("", err.description()).to_json();
     }
-    let res = SysRole {
-        id: Some(ObjectId::new().to_string()),
-        name: role.name.clone(),
-        create_date: DateTimeNative::now().into()
-    };
-    if let Err(err) = CONTEXT.sys_role_service.add(res).await {
+
+    if let Err(err) = CONTEXT.sys_role_service.add(role.0).await {
         return  ResVO::<String>::unwrap_error_string("", err.description()).to_json();
     }
     ResVO::<String>::unwrap_success_string("", "添加成功").to_json()

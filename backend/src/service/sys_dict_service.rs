@@ -2,9 +2,10 @@ use crate::config::error::{RestResult, Error};
 use crate::bean::dto::{dict::*, IdDTO};
 use crate::bean::vo::dict::*;
 use crate::bean::tables::*;
-use rbatis::{PageRequest, Page, IPage, IPageRequest};
+use rbatis::{PageRequest, Page, IPage, IPageRequest, DateTimeNative};
 use crate::service::CONTEXT;
 use rbatis::crud::{CRUD, Skip};
+use rbatis::plugin::object_id::ObjectId;
 
 /// 字典服务
 pub struct SysDictService {}
@@ -127,8 +128,15 @@ impl SysDictService {
     }
 
     /// 字典新增
-    pub async fn add(&self, dict: SysDict) -> RestResult<()> {
-        if 1 == CONTEXT.rbatis.save::<SysDict>(&dict, &[]).await?.rows_affected {
+    pub async fn add(&self, dict: DictAddDTO) -> RestResult<()> {
+        let data = SysDict {
+            id: Some(ObjectId::new().to_string()),
+            name: dict.name.clone(),
+            code: dict.code.clone(),
+            state: dict.state.clone(),
+            create_date: DateTimeNative::now().into()
+        };
+        if 1 == CONTEXT.rbatis.save::<SysDict>(&data, &[]).await?.rows_affected {
             Ok(())
         } else {
             Err(Error::from("添加失败"))

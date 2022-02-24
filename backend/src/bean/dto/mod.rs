@@ -6,6 +6,8 @@ pub mod dict;
 pub mod user;
 /// 角色
 pub mod role;
+/// 菜单
+pub mod menu;
 
 use serde::{Serialize, Deserialize};
 

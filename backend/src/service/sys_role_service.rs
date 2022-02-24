@@ -1,11 +1,12 @@
 use crate::bean::dto::role::{RoleListDTO, RoleAddDTO, RoleUpdateDTO};
 use crate::config::error::{RestResult, Error};
-use rbatis::{Page, PageRequest, IPage, IPageRequest};
+use rbatis::{Page, PageRequest, IPage, IPageRequest, DateTimeNative};
 use crate::bean::tables::SysRole;
 use crate::bean::vo::role::SysRoleVO;
 use crate::service::CONTEXT;
 use rbatis::crud::{CRUD, Skip};
 use crate::bean::dto::IdDTO;
+use rbatis::plugin::object_id::ObjectId;
 
 /// 角色服务
 pub struct SysRoleService {}
@@ -112,8 +113,13 @@ impl SysRoleService {
     }
 
     /// 角色新增
-    pub async fn add(&self, role: SysRole) -> RestResult<()> {
-        if 1 == CONTEXT.rbatis.save::<SysRole>(&role, &[]).await?.rows_affected {
+    pub async fn add(&self, role: RoleAddDTO) -> RestResult<()> {
+        let data = SysRole {
+            id: Some(ObjectId::new().to_string()),
+            name: role.name.clone(),
+            create_date: DateTimeNative::now().into()
+        };
+        if 1 == CONTEXT.rbatis.save::<SysRole>(&data, &[]).await?.rows_affected {
             Ok(())
         } else {
             Err(Error::from("添加失败"))

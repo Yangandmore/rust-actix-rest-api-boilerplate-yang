@@ -11,11 +11,11 @@ pub struct  SysRoleVO {
 }
 
 impl From<SysRole> for SysRoleVO {
-    fn from(dict: SysRole) -> Self {
+    fn from(role: SysRole) -> Self {
         Self {
-            id: dict.id,
-            name: dict.name,
-            create_date: dict.create_date,
+            id: role.id,
+            name: role.name,
+            create_date: role.create_date,
         }
     }
 }

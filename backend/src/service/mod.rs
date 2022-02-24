@@ -6,6 +6,8 @@ mod sys_dict_service;
 mod sys_user_service;
 /// 系统角色服务
 mod sys_role_service;
+/// 系统菜单服务
+mod sys_menu_service;
 
 use crate::config::{config::AppConfig, mysql};
 use lazy_static::lazy_static;
@@ -13,6 +15,7 @@ use rbatis::rbatis::Rbatis;
 use crate::service::sys_dict_service::SysDictService;
 use crate::service::sys_user_service::SysUserService;
 use crate::service::sys_role_service::SysRoleService;
+use crate::service::sys_menu_service::SysMenuService;
 
 pub struct ServiceContext {
     pub config: AppConfig,
@@ -22,6 +25,7 @@ pub struct ServiceContext {
     pub sys_dict_service: SysDictService,
     pub sys_user_service: SysUserService,
     pub sys_role_service: SysRoleService,
+    pub sys_menu_service: SysMenuService,
 }
 
 impl Default for ServiceContext {
@@ -39,6 +43,8 @@ impl Default for ServiceContext {
             sys_user_service: SysUserService{},
             // 角色服务部分
             sys_role_service: SysRoleService{},
+            // 菜单服务部分
+            sys_menu_service: SysMenuService{}
         }
     }
 }

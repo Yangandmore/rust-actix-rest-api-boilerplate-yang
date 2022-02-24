@@ -35,3 +35,16 @@ pub struct SysRole {
     pub create_date: Option<DateTimeNative>,
 }
 impl_field_name_method!(SysRole{id, name, create_date});
+
+/// 菜单表
+#[crud_table]
+#[derive(Clone, Debug)]
+pub struct SysMenu {
+    pub id: Option<String>,
+    pub name: Option<String>,
+    pub route_name: Option<String>,
+    pub sort: Option<i32>,
+    pub parent_id: Option<String>,
+    pub create_date: Option<DateTimeNative>,
+}
+impl_field_name_method!(SysMenu{id, name, route_name, sort, parent_id, create_date});
